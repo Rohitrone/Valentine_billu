@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Billu Vakeel 💖</title>
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      height: 100vh;
+      overflow: hidden;
+      background: radial-gradient(circle at top, #ffd6e8, #ff8fab);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.96);
+      padding: 32px 26px;
+      border-radius: 26px;
+      width: 360px;
+      max-width: 92vw;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+      animation: popIn 0.8s ease;
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.7) translateY(40px);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      color: #ff4d6d;
+    }
+
+    h2 {
+      margin: 6px 0 14px;
+      font-size: 18px;
+      font-weight: 400;
+      color: #ff6f91;
+    }
+
+    .emoji {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    /* Ghibli Image */
+    .ghibli-img {
+      width: 100%;
+      max-width: 260px;
+      border-radius: 20px;
+      margin: 12px auto 10px;
+      box-shadow: 0 12px 30px rgba(255, 77, 109, 0.35);
+      animation: ghibliFloat 4s ease-in-out infinite;
+    }
+
+    @keyframes ghibliFloat {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-10px) scale(1.02);
+      }
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 18px;
+      position: relative;
+    }
+
+    button {
+      border: none;
+      padding: 12px 26px;
+      font-size: 15px;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .yes {
+      background: linear-gradient(135deg, #ff4d6d, #ff758f);
+      color: white;
+      box-shadow: 0 8px 20px rgba(255,77,109,0.5);
+    }
+
+    .yes:hover {
+      transform: scale(1.1);
+    }
+
+    .no {
+      background: #f1f1f1;
+      color: #555;
+      position: absolute;
+    }
+
+    .message {
+      display: none;
+      margin-top: 22px;
+      font-size: 18px;
+      color: #ff4d6d;
+      animation: fadeIn 0.6s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      font-size: 18px;
+      animation: floatUp linear infinite;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(100vh) scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-10vh) scale(1.6);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1>Will you be my Valentine? 💘</h1>
+    <h2>Billu Vakeel 🐻💖</h2>
+
+    <div class="emoji">🌸💌✨</div>
+
+    <!-- PERSONAL IMAGE -->
+    <img 
+      src="billu-ghibli.png" 
+      alt="Billu Ghibli Valentine"
+      class="ghibli-img"
+    />
+
+    <div class="buttons">
+      <button class="yes" onclick="sayYes()">YES 💕</button>
+      <button class="no" id="noBtn">NO 🙈</button>
+    </div>
+
+    <div class="message" id="loveMsg">
+      Yayyy! 🥰💖<br />
+      You are my Valentine forever 💫
+    </div>
+  </div>
+
+  <script>
+    let noCount = 0;
+
+    const noPhrases = [
+      "No 🙅‍♀️",
+      "Are you sure? 🤔",
+      "Really sure? 😳",
+      "Think again! 💭",
+      "Last chance! ⏳",
+      "Surely not? 🥺",
+      "You might regret this! 😢",
+      "Give it another thought! 💖",
+      "Are you absolutely certain? 😬",
+      "This could be a mistake! 😱",
+      "Have a heart! 💔",
+      "Don't be so cold! 🧊",
+      "Change of heart? 💘",
+      "Wouldn't you reconsider? 🥹",
+      "Final answer? 😶",
+      "You're breaking my heart 😭"
+    ];
+
+    const noBtn = document.getElementById('noBtn');
+    const yesBtn = document.querySelector('.yes');
+
+    noBtn.addEventListener('click', () => {
+      noCount++;
+
+      noBtn.innerText = noPhrases[Math.min(noCount, noPhrases.length - 1)];
+
+      yesBtn.style.fontSize = (16 + noCount * 6) + 'px';
+
+      const x = Math.random() * 220 - 110;
+      const y = Math.random() * 140 - 70;
+      noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+      if (noCount > 10) {
+        noBtn.innerText = 'YES 💕';
+        noBtn.className = 'yes';
+        noBtn.onclick = sayYes;
+      }
+    });
+
+    function sayYes() {
+      document.getElementById('loveMsg').style.display = 'block';
+
+      for (let i = 0; i < 20; i++) {
+        setTimeout(createHeart, i * 80);
+      }
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerHTML = '💖';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 3 + Math.random() * 3 + 's';
+      heart.style.fontSize = 16 + Math.random() * 20 + 'px';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    setInterval(createHeart, 250);
+  </script>
+
+</body>
+</html>
